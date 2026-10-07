@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | MIDTEK Product Manager</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" href="images/midtek.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header class="site-header">
+    <main>
+      <!-- Admin login is always the first screen when /admin.html is opened. -->
+      <section id="admin-login" class="admin-login-screen" aria-labelledby="admin-login-title">
+        <div class="admin-login-card">
+          <div class="admin-login-brand"><img src="images/midtek.png" alt="MIDTEK logo" width="48" height="48"></div>
+          <span class="eyebrow-line">Secure administration</span>
+          <h1 id="admin-login-title">Admin Login</h1>
+          <p>Sign in to access the MIDTEK product dashboard.</p>
+          <form id="admin-login-form" class="admin-login-form" novalidate>
+            <label class="form-field" for="login-password">
+              <span>Admin password</span>
+              <div class="password-wrap">
+                <input id="login-password" type="password" autocomplete="current-password" required
+                  placeholder="Enter your password">
+                <button type="button" id="toggle-login-password" class="password-toggle" aria-label="Show password"
+                  aria-pressed="false">Show</button>
+              </div>
+            </label>
+            <button type="submit" id="admin-login-btn" class="btn btn-primary login-btn">Sign in to dashboard</button>
+            <div id="admin-login-status" class="form-status" role="alert" aria-live="polite"></div>
+</form>
+          <a class="admin-back-link" href="index.html">← Back to MIDTEK website</a>
+        </div>
+      </section>
+
+      <section id="admin-dashboard" hidden>
+        <section class="page-hero admin-hero">
+          <div class="container">
+            <span class="eyebrow-line">Admin panel</span>
+            <h1>Product Manager</h1>
+            <p class="lede">Add, edit, filter and delete products. Upload a dedicated image for every product and
+              publish
+              all changes to Google Sheets.</p>
+          </div>
+        </section>
+
+        <section class="section admin-section" style="padding-top:0;">
+          <div class="container">
+            <div id="admin-status" class="form-status" role="status" aria-live="polite"></div>
+
+            <div class="admin-toolbar-card">
+              <div class="admin-toolbar-top">
+                <div>
+                  <span class="admin-label">Catalogue</span>
+                  <h2>Products <span id="product-count" class="count-badge">0</span></h2>
+                </div>
+                <div class="admin-toolbar-actions"><button type="button" id="add-product"
+                    class="btn btn-primary add-product-btn">+ Add product</button><button type="button"
+                    id="admin-logout" class="btn btn-ghost">Log out</button></div>
+              </div>
+              <div class="admin-filters">
+                <label class="admin-search"><span>Search products</span><input id="product-search" type="search"
+                    placeholder="Search by product name or description…" autocomplete="off"></label>
+                <label><span>Category</span><select id="product-category-filter">
+                    <option value="all">All categories</option>
+                  </select></label>
+                <label><span>Filter</span><select id="product-filter">
+                    <option value="all">All products</option>
+                    <option value="image">With image</option>
+                    <option value="no-image">Without image</option>
+                  </select></label>
+                <label><span>Sort</span><select id="product-sort">
+                    <option value="newest">Newest first</option>
+                    <option value="oldest">Oldest first</option>
+                    <option value="name-az">Name A–Z</option>
+                    <option value="name-za">Name Z–A</option>
+                    <option value="price-low">Price low–high</option>
+                    <option value="price-high">Price high–low</option>
+                  </select></label>
+              </div>
+            </div>
+
+            <div id="editor-list" class="admin-product-list"></div>
+            <div class="admin-card" style="margin-top:1.25rem;padding:1.25rem;">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;">
+                <div><span class="admin-label">Catalogue structure</span>
+                  <h3 style="margin:.2rem 0;">Categories</h3>
+                  <p class="form-hint" style="margin:0;">A new category is created automatically when a product uses a
+                    category that does not exist.</p>
+                </div>
+                <div style="display:flex;gap:.5rem;align-items:center;">
+                  <input id="new-category-name" type="text" maxlength="80" placeholder="New category name"
+                    style="min-width:220px;">
+                  <button type="button" class="btn btn-primary" id="add-category-btn">+ Add category</button>
+                </div>
+              </div>
+              <div id="category-list" class="category-list" style="margin-top:1rem;"></div>
+            </div>
+
+            <div class="admin-save-bar">
+              <div class="admin-save-copy"><strong id="change-state">No unsaved changes</strong><span>Changes are
+                  published only when you click Save changes.</span></div>
+              <div class="admin-save-actions">
+                <button type="button" id="reset-defaults" class="btn btn-ghost">Reset defaults</button>
+                <button type="button" id="save-changes" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Add/Edit product modal -->
+        <div id="product-modal" class="admin-modal" hidden>
+          <div class="admin-modal-backdrop" data-close-modal></div>
+          <section class="admin-modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+            <div class="admin-modal-head">
+              <div><span class="admin-label">Product details</span>
+                <h2 id="modal-title">Add product</h2>
+              </div>
+              <button type="button" class="modal-close" data-close-modal aria-label="Close">×</button>
+            </div>
+            <form id="product-form" novalidate>
+              <div class="modal-form-grid">
+                <div class="form-field">
+                  <label for="product-name">Product name *</label>
+                  <input id="product-name" name="name" type="text" maxlength="120" required
+                    placeholder="e.g. LED High Bay 150W">
+                </div>
+                <div class="form-field">
+                  <label for="product-category">Category *</label>
+                  <select id="product-category" name="category" required></select>
+                </div>
+                <div class="form-field">
+                  <label for="product-price">Price (₹) *</label>
+                  <input id="product-price" name="price" type="number" min="0" step="1" required placeholder="0">
+                </div>
+                <div class="form-field full">
+                  <label for="product-description">Product description *</label>
+                  <textarea id="product-description" name="description" maxlength="600" required
+                    placeholder="Write a clear product description…"></textarea>
+                </div>
+                <div class="form-field full">
+                  <label>Product image *</label>
+                  <div class="modal-image-uploader">
+                    <div id="modal-image-preview" class="modal-image-preview"><span>No image selected</span></div>
+                    <div class="modal-image-controls">
+                      <input id="product-image" type="file" accept="image/jpeg,image/png,image/webp">
+                      <p class="form-hint">JPG, PNG or WebP. Images are resized and compressed before upload.</p>
+                      <button type="button" id="remove-modal-image" class="btn btn-ghost small-btn">Remove
+                        image</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="modal-form-error" class="modal-form-error" role="alert"></div>
+              <div class="admin-modal-footer">
+                <button type="button" class="btn btn-ghost" data-close-modal>Cancel</button>
+                <button type="submit" class="btn btn-primary" id="modal-submit">Add product</button>
+              </div>
+            </form>
+          </section>
+        </div>
+
+        <script src="js/products-data.js"></script>
+        <script src="js/admin.js?v=20260921-v11"></script>
+</body>
+
+</html>

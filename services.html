@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services &amp; Products | MIDTEK LED Lighting</title>
+  <meta name="description"
+    content="Browse MIDTEK's LED lighting products for commercial, industrial and outdoor spaces, with descriptions and pricing.">
+  <link rel="icon" href="images/midtek.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+    <link rel="canonical" href="https://www.midtek.com/services.html">
+</head>
+
+<body class="midtek-home">
+  <header class="site-header">
+    <nav class="nav nav-showcase" aria-label="Primary">
+      <a href="index.html" class="brand brand-logo-only"><img src="images/midtek.png" alt="MIDTEK logo"></a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round" />
+        </svg>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html" data-path="index.html">Home</a></li>
+        <li><a href="about.html" data-path="about.html">About</a></li>
+        <li><a href="services.html" data-path="services.html">Services</a></li>
+        <li><a href="contact.html" data-path="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="page-hero">
+      <div class="container">
+        <span class="eyebrow-line">Products</span>
+        <h1>LED fixtures for every space</h1>
+        <p class="lede">A snapshot of MIDTEK's core range. Get in touch for full specs, bulk pricing and current lead
+          times.</p>
+      </div>
+    </section>
+
+    <section id="categories" class="section">
+      <div class="container">
+        <div style="display:flex;justify-content:flex-end;margin-bottom:1.25rem;">
+          <label style="display:flex;align-items:center;gap:.65rem;">Category
+            <select id="service-category-filter" aria-label="Filter products by category">
+              <option value="all">All categories</option>
+            </select>
+          </label>
+        </div>
+        <div class="product-grid" id="product-grid">
+          <noscript>Enable JavaScript to see the current product list.</noscript>
+        </div>
+      </div>
+    </section>
+
+    <section class="requirement-section" aria-label="Lighting requirement call to action">
+      <div class="showcase-container">
+        <div class="requirement-card">
+          <div>
+            <h2>Have a lighting requirement?</h2>
+            <p>Share us your space details and we'll get back with a fixture recommendation.</p>
+          </div>
+          <a href="contact.html" class="showcase-btn showcase-btn-primary">Contact MIDTEK</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer showcase-footer">
+    <div class="showcase-container footer-showcase-grid">
+      <div>
+        <div class="footer-brand"><img src="images/midtek.png" alt="MIDTEK logo"><strong>MIDTEK</strong></div>
+        <p>Delivering innovative, energy-efficient LED lighting solutions for a brighter and sustainable tomorrow.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4><a href="index.html">Home</a><a href="about.html">About</a><a
+          href="services.html#categories">Services</a><a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Us</h4><a href="tel:+919148284742">+91 9148284742</a>
+        <a href="tel:+919741478732">+91 9741478732</a><a
+          href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=info%40midtek.in&amp;su=MIDTEK%20Enquiry"
+          target="_blank" rel="noopener noreferrer">info@midtek.in</a><span>Bengaluru, India</span>
+      </div>
+      <div class="footer-col footer-map">
+        <h4>Find Us</h4>
+        <p>MIDTEK UNIT 2, XC9P+JQ2, Channenahalli, Karnataka 562130</p>
+        <iframe title="MIDTEK location map"
+          src="https://www.google.com/maps?q=Midtek+UNIT+2%2C+XC9P%2BJQ2%2C+Channenahalli%2C+Karnataka+562130&amp;output=embed"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+    </div>
+    <div class="showcase-container footer-bottom">
+      <span>© <span>2018</span> MIDTEK. All rights reserved.</span>
+      <span>Atelier by <a href="https://vasudevcore.com/" target="_blank" rel="noopener noreferrer">Vasudev
+          Core</a></span>
+    </div>
+  </footer>
+
+  <script src="js/products-data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Fast catalogue rendering:
+    // 1) Show cached products immediately when available.
+    // 2) Refresh Google Sheets in the background.
+    // 3) Only show the network wait on a first-ever visit.
+    (function () {
+      var grid = document.getElementById('product-grid');
+      var categoryFilter = document.getElementById('service-category-filter');
+      if (!grid || !window.MidtekProducts) return;
+
+      var loadingMarkup =
+        '<div class="product-card" aria-hidden="true"><div class="product-media"></div><div class="product-body"><div style="height:1.2rem;width:55%;background:var(--bg-2);border-radius:8px;margin-bottom:1rem;opacity:.7"></div><div style="height:.9rem;width:90%;background:var(--bg-2);border-radius:8px;margin-bottom:.55rem;opacity:.5"></div><div style="height:.9rem;width:72%;background:var(--bg-2);border-radius:8px;opacity:.5"></div></div></div>' +
+        '<div class="product-card" aria-hidden="true"><div class="product-media"></div><div class="product-body"><div style="height:1.2rem;width:48%;background:var(--bg-2);border-radius:8px;margin-bottom:1rem;opacity:.7"></div><div style="height:.9rem;width:86%;background:var(--bg-2);border-radius:8px;margin-bottom:.55rem;opacity:.5"></div><div style="height:.9rem;width:68%;background:var(--bg-2);border-radius:8px;opacity:.5"></div></div></div>';
+
+      var params = new URLSearchParams(window.location.search);
+      var initialCategory = params.get('category') || 'all';
+      var searchQuery = (params.get('q') || '').trim().toLowerCase();
+
+      function render(products) {
+        var selected = categoryFilter ? categoryFilter.value : initialCategory;
+        var visible = selected === 'all' ? products : products.filter(function (p) { return String(p.category || 'Uncategorized') === selected; });
+        if (searchQuery) {
+          visible = visible.filter(function (p) { return (String(p.name || '') + ' ' + String(p.description || '') + ' ' + String(p.category || '')).toLowerCase().indexOf(searchQuery) !== -1; });
+        }
+        grid.innerHTML = visible.length
+          ? visible.map(window.MidtekProducts.productCardHTML).join('')
+          : '<p style="color:var(--ink-faint);">No products available right now — please check back soon.</p>';
+      }
+
+      grid.innerHTML = loadingMarkup;
+
+      window.MidtekProducts.load({
+        onRefresh: function (freshProducts) {
+          render(freshProducts);
+        }
+      }).then(function (result) {
+        if (categoryFilter) {
+          var cats = (result.categories || window.MidtekProducts.deriveCategories(result.products)).filter(function (c) { return c.active !== false; });
+          categoryFilter.innerHTML = '<option value="all">All categories</option>' + cats.map(function (c) { return '<option value="' + window.MidtekProducts.escapeHtml(c.name) + '">' + window.MidtekProducts.escapeHtml(c.name) + '</option>'; }).join('');
+          if (initialCategory && cats.some(function (c) { return c.name === initialCategory; })) categoryFilter.value = initialCategory;
+          categoryFilter.addEventListener('change', function () { render(result.products); });
+        }
+        render(result.products);
+        if (result.error) console.warn('MIDTEK products:', result.error);
+      });
+    })();
+  </script>
+</body>
+
+</html>
